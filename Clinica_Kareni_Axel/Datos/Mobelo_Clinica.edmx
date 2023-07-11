@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Mobelo_Clinica.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Mobelo_ClinicaStoreContainer">
+    <EntitySet Name="Usuarios" EntityType="Mobelo_Clinica.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bitacoras" EntityType="Mobelo_Clinica.Store.Bitacoras" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas" EntityType="Mobelo_Clinica.Store.Personas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Familias" EntityType="Mobelo_Clinica.Store.Familias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Mascotas" EntityType="Mobelo_Clinica.Store.Mascotas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HistorialMedicos" EntityType="Mobelo_Clinica.Store.HistorialMedicos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Vacunas" EntityType="Mobelo_Clinica.Store.Vacunas" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsuarioBitacora" Association="Mobelo_Clinica.Store.UsuarioBitacora">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Bitacora" EntitySet="Bitacoras" />
+    </AssociationSet>
+    <AssociationSet Name="PersonaFamilia" Association="Mobelo_Clinica.Store.PersonaFamilia">
+      <End Role="Persona" EntitySet="Personas" />
+      <End Role="Familia" EntitySet="Familias" />
+    </AssociationSet>
+    <AssociationSet Name="FamiliaMascota" Association="Mobelo_Clinica.Store.FamiliaMascota">
+      <End Role="Familia" EntitySet="Familias" />
+      <End Role="Mascota" EntitySet="Mascotas" />
+    </AssociationSet>
+    <AssociationSet Name="MascotaHistorialMedico" Association="Mobelo_Clinica.Store.MascotaHistorialMedico">
+      <End Role="Mascota" EntitySet="Mascotas" />
+      <End Role="HistorialMedico" EntitySet="HistorialMedicos" />
+    </AssociationSet>
+    <AssociationSet Name="VacunaHistorialMedico" Association="Mobelo_Clinica.Store.VacunaHistorialMedico">
+      <End Role="Vacuna" EntitySet="Vacunas" />
+      <End Role="HistorialMedico" EntitySet="HistorialMedicos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bitacoras">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Accion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoPersona" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NombrePersaona" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CuentaBancaria" Type="float" Nullable="false" />
+    <Property Name="DirrecionPersona" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TelefonoPersona" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DNI" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Familia_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Familias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoFamilia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApeCabezaDeFamilia" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mascotas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoMascota" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AliasMascota" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EspecieMascota" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RazaMascota" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ColorDePeloMascota" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaDeNacAprox" Type="datetime" Nullable="false" />
+    <Property Name="PesoMedio" Type="float" Nullable="false" />
+    <Property Name="PesoActual" Type="float" Nullable="false" />
+    <Property Name="FamiliaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HistorialMedicos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaDeVacuna" Type="datetime" Nullable="false" />
+    <Property Name="MascotaId" Type="int" Nullable="false" />
+    <Property Name="VacunaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vacunas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreVacuna" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Enfermeda" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="UsuarioBitacora">
+    <End Role="Usuario" Type="Mobelo_Clinica.Store.Usuarios" Multiplicity="1" />
+    <End Role="Bitacora" Type="Mobelo_Clinica.Store.Bitacoras" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bitacora">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonaFamilia">
+    <End Role="Persona" Type="Mobelo_Clinica.Store.Personas" Multiplicity="*" />
+    <End Role="Familia" Type="Mobelo_Clinica.Store.Familias" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Familia">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Persona">
+        <PropertyRef Name="Familia_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FamiliaMascota">
+    <End Role="Familia" Type="Mobelo_Clinica.Store.Familias" Multiplicity="1" />
+    <End Role="Mascota" Type="Mobelo_Clinica.Store.Mascotas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Familia">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mascota">
+        <PropertyRef Name="FamiliaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MascotaHistorialMedico">
+    <End Role="Mascota" Type="Mobelo_Clinica.Store.Mascotas" Multiplicity="1" />
+    <End Role="HistorialMedico" Type="Mobelo_Clinica.Store.HistorialMedicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mascota">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistorialMedico">
+        <PropertyRef Name="MascotaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VacunaHistorialMedico">
+    <End Role="Vacuna" Type="Mobelo_Clinica.Store.Vacunas" Multiplicity="1" />
+    <End Role="HistorialMedico" Type="Mobelo_Clinica.Store.HistorialMedicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vacuna">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistorialMedico">
+        <PropertyRef Name="VacunaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Mobelo_Clinica" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Mobelo_ClinicaContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Usuarios" EntityType="Mobelo_Clinica.Usuario" />
+          <EntitySet Name="Bitacoras" EntityType="Mobelo_Clinica.Bitacora" />
+          <AssociationSet Name="UsuarioBitacora" Association="Mobelo_Clinica.UsuarioBitacora">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Bitacora" EntitySet="Bitacoras" />
+          </AssociationSet>
+          <EntitySet Name="Personas" EntityType="Mobelo_Clinica.Persona" />
+          <EntitySet Name="Familias" EntityType="Mobelo_Clinica.Familia" />
+          <EntitySet Name="Mascotas" EntityType="Mobelo_Clinica.Mascota" />
+          <EntitySet Name="HistorialMedicos" EntityType="Mobelo_Clinica.HistorialMedico" />
+          <EntitySet Name="Vacunas" EntityType="Mobelo_Clinica.Vacuna" />
+          <AssociationSet Name="PersonaFamilia" Association="Mobelo_Clinica.PersonaFamilia">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Familia" EntitySet="Familias" />
+          </AssociationSet>
+          <AssociationSet Name="FamiliaMascota" Association="Mobelo_Clinica.FamiliaMascota">
+            <End Role="Familia" EntitySet="Familias" />
+            <End Role="Mascota" EntitySet="Mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="MascotaHistorialMedico" Association="Mobelo_Clinica.MascotaHistorialMedico">
+            <End Role="Mascota" EntitySet="Mascotas" />
+            <End Role="HistorialMedico" EntitySet="HistorialMedicos" />
+          </AssociationSet>
+          <AssociationSet Name="VacunaHistorialMedico" Association="Mobelo_Clinica.VacunaHistorialMedico">
+            <End Role="Vacuna" EntitySet="Vacunas" />
+            <End Role="HistorialMedico" EntitySet="HistorialMedicos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="User" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bitacora" Relationship="Mobelo_Clinica.UsuarioBitacora" FromRole="Usuario" ToRole="Bitacora" />
+        </EntityType>
+        <EntityType Name="Bitacora">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Accion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Mobelo_Clinica.UsuarioBitacora" FromRole="Bitacora" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UsuarioBitacora">
+          <End Type="Mobelo_Clinica.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Mobelo_Clinica.Bitacora" Role="Bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bitacora">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoPersona" Type="String" Nullable="false" />
+          <Property Name="NombrePersaona" Type="String" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="Double" Nullable="false" />
+          <Property Name="DirrecionPersona" Type="String" Nullable="false" />
+          <Property Name="TelefonoPersona" Type="String" Nullable="false" />
+          <Property Name="DNI" Type="String" Nullable="false" />
+          <NavigationProperty Name="Familia" Relationship="Mobelo_Clinica.PersonaFamilia" FromRole="Persona" ToRole="Familia" />
+        </EntityType>
+        <EntityType Name="Familia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoFamilia" Type="String" Nullable="false" />
+          <Property Name="ApeCabezaDeFamilia" Type="String" Nullable="false" />
+          <NavigationProperty Name="Personas" Relationship="Mobelo_Clinica.PersonaFamilia" FromRole="Familia" ToRole="Persona" />
+          <NavigationProperty Name="Mascotas" Relationship="Mobelo_Clinica.FamiliaMascota" FromRole="Familia" ToRole="Mascota" />
+        </EntityType>
+        <EntityType Name="Mascota">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoMascota" Type="String" Nullable="false" />
+          <Property Name="AliasMascota" Type="String" Nullable="false" />
+          <Property Name="EspecieMascota" Type="String" Nullable="false" />
+          <Property Name="RazaMascota" Type="String" Nullable="false" />
+          <Property Name="ColorDePeloMascota" Type="String" Nullable="false" />
+          <Property Name="FechaDeNacAprox" Type="DateTime" Nullable="false" />
+          <Property Name="PesoMedio" Type="Double" Nullable="false" />
+          <Property Name="PesoActual" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Familia" Relationship="Mobelo_Clinica.FamiliaMascota" FromRole="Mascota" ToRole="Familia" />
+          <Property Name="FamiliaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HistorialMedicos" Relationship="Mobelo_Clinica.MascotaHistorialMedico" FromRole="Mascota" ToRole="HistorialMedico" />
+        </EntityType>
+        <EntityType Name="HistorialMedico">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" />
+          <Property Name="FechaDeVacuna" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Mascota" Relationship="Mobelo_Clinica.MascotaHistorialMedico" FromRole="HistorialMedico" ToRole="Mascota" />
+          <Property Name="MascotaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vacuna" Relationship="Mobelo_Clinica.VacunaHistorialMedico" FromRole="HistorialMedico" ToRole="Vacuna" />
+          <Property Name="VacunaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vacuna">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreVacuna" Type="String" Nullable="false" />
+          <Property Name="Enfermeda" Type="String" Nullable="false" />
+          <NavigationProperty Name="HistorialMedicos" Relationship="Mobelo_Clinica.VacunaHistorialMedico" FromRole="Vacuna" ToRole="HistorialMedico" />
+        </EntityType>
+        <Association Name="PersonaFamilia">
+          <End Type="Mobelo_Clinica.Persona" Role="Persona" Multiplicity="*" />
+          <End Type="Mobelo_Clinica.Familia" Role="Familia" Multiplicity="1" />
+        </Association>
+        <Association Name="FamiliaMascota">
+          <End Type="Mobelo_Clinica.Familia" Role="Familia" Multiplicity="1" />
+          <End Type="Mobelo_Clinica.Mascota" Role="Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Familia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="FamiliaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MascotaHistorialMedico">
+          <End Type="Mobelo_Clinica.Mascota" Role="Mascota" Multiplicity="1" />
+          <End Type="Mobelo_Clinica.HistorialMedico" Role="HistorialMedico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistorialMedico">
+              <PropertyRef Name="MascotaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VacunaHistorialMedico">
+          <End Type="Mobelo_Clinica.Vacuna" Role="Vacuna" Multiplicity="1" />
+          <End Type="Mobelo_Clinica.HistorialMedico" Role="HistorialMedico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vacuna">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistorialMedico">
+              <PropertyRef Name="VacunaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Mobelo_ClinicaStoreContainer" CdmEntityContainer="Mobelo_ClinicaContainer">
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.Usuario)">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bitacoras">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.Bitacora)">
+        <MappingFragment StoreEntitySet="Bitacoras">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.Persona)">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CodigoPersona" ColumnName="CodigoPersona" />
+          <ScalarProperty Name="NombrePersaona" ColumnName="NombrePersaona" />
+          <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
+          <ScalarProperty Name="DirrecionPersona" ColumnName="DirrecionPersona" />
+          <ScalarProperty Name="TelefonoPersona" ColumnName="TelefonoPersona" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Familias">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.Familia)">
+        <MappingFragment StoreEntitySet="Familias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CodigoFamilia" ColumnName="CodigoFamilia" />
+          <ScalarProperty Name="ApeCabezaDeFamilia" ColumnName="ApeCabezaDeFamilia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mascotas">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.Mascota)">
+        <MappingFragment StoreEntitySet="Mascotas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CodigoMascota" ColumnName="CodigoMascota" />
+          <ScalarProperty Name="AliasMascota" ColumnName="AliasMascota" />
+          <ScalarProperty Name="EspecieMascota" ColumnName="EspecieMascota" />
+          <ScalarProperty Name="RazaMascota" ColumnName="RazaMascota" />
+          <ScalarProperty Name="ColorDePeloMascota" ColumnName="ColorDePeloMascota" />
+          <ScalarProperty Name="FechaDeNacAprox" ColumnName="FechaDeNacAprox" />
+          <ScalarProperty Name="PesoMedio" ColumnName="PesoMedio" />
+          <ScalarProperty Name="PesoActual" ColumnName="PesoActual" />
+          <ScalarProperty Name="FamiliaId" ColumnName="FamiliaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistorialMedicos">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.HistorialMedico)">
+        <MappingFragment StoreEntitySet="HistorialMedicos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="FechaDeVacuna" ColumnName="FechaDeVacuna" />
+          <ScalarProperty Name="MascotaId" ColumnName="MascotaId" />
+          <ScalarProperty Name="VacunaId" ColumnName="VacunaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vacunas">
+      <EntityTypeMapping TypeName="IsTypeOf(Mobelo_Clinica.Vacuna)">
+        <MappingFragment StoreEntitySet="Vacunas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreVacuna" ColumnName="NombreVacuna" />
+          <ScalarProperty Name="Enfermeda" ColumnName="Enfermeda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonaFamilia" TypeName="Mobelo_Clinica.PersonaFamilia" StoreEntitySet="Personas">
+      <EndProperty Name="Familia">
+        <ScalarProperty Name="Id" ColumnName="Familia_Id" />
+      </EndProperty>
+      <EndProperty Name="Persona">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="66477f65950044d1b7cf994a03265429" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="Mobelo_Clinica.Usuario" Width="1.5" PointX="7.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mobelo_Clinica.Bitacora" Width="1.5" PointX="10" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mobelo_Clinica.Persona" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mobelo_Clinica.Familia" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mobelo_Clinica.Mascota" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mobelo_Clinica.HistorialMedico" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mobelo_Clinica.Vacuna" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="Mobelo_Clinica.UsuarioBitacora" ManuallyRouted="false" />
+        <AssociationConnector Association="Mobelo_Clinica.PersonaFamilia" ManuallyRouted="false" />
+        <AssociationConnector Association="Mobelo_Clinica.FamiliaMascota" ManuallyRouted="false" />
+        <AssociationConnector Association="Mobelo_Clinica.MascotaHistorialMedico" ManuallyRouted="false" />
+        <AssociationConnector Association="Mobelo_Clinica.VacunaHistorialMedico" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
